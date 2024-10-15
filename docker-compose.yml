@@ -1,0 +1,12 @@
+version: '3'
+services:
+  springboot-job:
+    container_name: springboot-job
+    image: personal/springboot-job
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_DATASOURCE_HOST=3.109.123.151 #Public IPv4 address of aws -instance
+      - SPRING_DATASOURCE_PORT=5432
