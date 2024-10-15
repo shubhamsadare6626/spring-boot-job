@@ -12,7 +12,7 @@ pipeline {
                     // Clone the repository from GitHub using HTTPS
                     git branch: 'main', 
                         credentialsId: 'github-https-credentials', 
-                        url: 'https://github.com/shubhamsadare6626/springboot-job-project.git'
+                        url: 'https://github.com/shubhamsadare6626/spring-boot-job.git'
                 }
             }
         }
