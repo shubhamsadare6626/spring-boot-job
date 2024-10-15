@@ -12,4 +12,4 @@ Getting Started
 To get started with the code in this repository:
 
 Clone the Repository:
-`bash git clone https://github.com/shubhamsadare6626/springboot-job-project.git
+`git@github.com:shubhamsadare6626/spring-boot-job.git`
