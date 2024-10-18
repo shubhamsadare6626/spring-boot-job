@@ -1,7 +1,7 @@
 package com.sample.springbootrest.service;
 
 import com.sample.springbootrest.entities.JobPost;
-import com.sample.springbootrest.repo.JobRepo;
+import com.sample.springbootrest.repositories.JobRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,32 +10,31 @@ import org.springframework.stereotype.Service;
 @Service
 public class JobService {
 
-  @Autowired public JobRepo repo;
+  @Autowired public JobRepository jobRepository;
 
   // method to return all JobPosts
   public List<JobPost> getAllJobs() {
-    return repo.findAll();
+    return jobRepository.findAll();
   }
 
   // method to add a jobPost
   public void addJob(JobPost jobPost) {
-    repo.save(jobPost);
+    jobRepository.save(jobPost);
   }
 
   // method to get job by id
   public JobPost getJob(int postId) {
-
-    return repo.findById(postId).orElse(new JobPost());
+    return jobRepository.findById(postId).orElse(new JobPost());
   }
 
   // method to update job with job post object
   public void updateJob(JobPost jobPost) {
-    repo.save(jobPost);
+    jobRepository.save(jobPost);
   }
 
   // method to delete job post by id
   public void deleteJob(int postId) {
-    repo.deleteById(postId);
+    jobRepository.deleteById(postId);
   }
 
   public void load() {
@@ -74,11 +73,11 @@ public class JobService {
                     3,
                     List.of("UI/UX Design", "Adobe XD", "Prototyping"))));
 
-    repo.saveAll(jobs);
+    jobRepository.saveAll(jobs);
   }
 
   public List<JobPost> search(String keyword) {
 
-    return repo.findByPostProfileContainingOrPostDescContaining(keyword, keyword);
+    return jobRepository.findByPostProfileContainingOrPostDescContaining(keyword, keyword);
   }
 }

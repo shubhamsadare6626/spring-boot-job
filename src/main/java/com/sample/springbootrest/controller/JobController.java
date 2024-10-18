@@ -3,51 +3,62 @@ package com.sample.springbootrest.controller;
 import com.sample.springbootrest.entities.JobPost;
 import com.sample.springbootrest.service.JobService;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Slf4j
 @CrossOrigin
+@RestController
+@RequestMapping("/rest/api/job")
 public class JobController {
 
-  @Autowired private JobService service;
+  @Autowired private JobService jobService;
 
-  @GetMapping("jobPosts")
+  @GetMapping("/jobPosts")
   public List<JobPost> getAllJobs() {
-    return service.getAllJobs();
+    log.info("GET /jobPosts ");
+    return jobService.getAllJobs();
   }
 
   @GetMapping("/jobPost/{postId}")
   public JobPost getJob(@PathVariable int postId) {
-    return service.getJob(postId);
+    log.info("GET /jobPosts/{} ", postId);
+    return jobService.getJob(postId);
   }
 
-  @GetMapping("jobPosts/keyword/{keyword}")
+  @GetMapping("/jobPosts/keyword/{keyword}")
   public List<JobPost> searchByKeyword(@PathVariable("keyword") String keyword) {
-    return service.search(keyword);
+    log.info("GET /jobPosts/keyword/{} ", keyword);
+    return jobService.search(keyword);
   }
 
-  @PostMapping("jobPost")
+  @PostMapping("/jobPost")
   public JobPost addJob(@RequestBody JobPost jobPost) {
-    service.addJob(jobPost);
-    return service.getJob(jobPost.getPostId());
+    log.info("POST /jobPost - Payload: {}", jobPost);
+    jobService.addJob(jobPost);
+    return jobService.getJob(jobPost.getPostId());
   }
 
-  @PutMapping("jobPost")
+  @PutMapping("/jobPost")
   public JobPost updateJob(@RequestBody JobPost jobPost) {
-    service.updateJob(jobPost);
-    return service.getJob(jobPost.getPostId());
+    log.info("PUT /jobPost - Payload: {}", jobPost);
+    jobService.updateJob(jobPost);
+    return jobService.getJob(jobPost.getPostId());
   }
 
-  @DeleteMapping("jobPost/{postId}")
+  @DeleteMapping("/jobPost/{postId}")
   public String deleteJob(@PathVariable int postId) {
-    service.deleteJob(postId);
-    return "Deleted";
+    log.info("DELETE /jobPost/{} ", postId);
+    jobService.deleteJob(postId);
+    return "Deleted id : " + postId;
   }
 
-  @GetMapping("load")
+  @GetMapping("/load")
   public String loadData() {
-    service.load();
-    return "success";
+    log.info("GET /load - Loading data...");
+    jobService.load();
+    log.info("GET /load - Data loaded...");
+    return "Data loaded Success";
   }
 }

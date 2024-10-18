@@ -22,3 +22,8 @@ spring:
       hibernate:
         enable_lazy_load_no_trans: true
     open-in-view: false
+s3:
+  bucket:
+    name: job-post-storage
+    access-key: ${AWS_ACCESS_KEY_ID}
+    secret-key: ${AWS_SECRET_ACCESS_KEY}

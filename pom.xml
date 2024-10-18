@@ -43,6 +43,11 @@
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <version>1.12.641</version>
+        </dependency>
         <!--  code formatter required- dependancy and plugin -->
         <dependency>
             <groupId>com.diffplug.spotless</groupId>
