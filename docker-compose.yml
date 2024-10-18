@@ -8,7 +8,7 @@ services:
     environment:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=root
-      - SPRING_DATASOURCE_HOST=43.204.228.69 #Public IPv4 address of aws -instance
+      - SPRING_DATASOURCE_HOST=${HOST_IP} #Public IPv4 address of aws -instance
       - SPRING_DATASOURCE_PORT=5432
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
