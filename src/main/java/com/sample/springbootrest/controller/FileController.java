@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,10 +39,8 @@ public class FileController {
   public ResponseEntity<String> uploadFileToS3Bucket(@RequestParam("file") MultipartFile file) {
     log.info("POST /rest/api/file/upload ");
     try {
-      // Convert MultipartFile to byte[]
-      byte[] imageBytes = file.getBytes();
       // Call the service method to upload to S3
-      String fileName = fileService.uploadFileToS3(imageBytes, file.getContentType());
+      String fileName = fileService.uploadFileToS3(file);
       return new ResponseEntity<>("Uploaded file with id: " + fileName, HttpStatus.OK);
     } catch (Exception e) {
       return new ResponseEntity<>(
@@ -57,12 +56,25 @@ public class FileController {
    */
   @GetMapping("/download/{fileName}")
   public ResponseEntity<?> downloadFile(@PathVariable String fileName) throws IOException {
-    log.info("POST /rest/api/file/download/{} ", fileName);
+    log.info("GET /rest/api/file/download/{} ", fileName);
     FileResponse fileResponse = fileService.downloadFile(fileName);
     ByteArrayResource resource = new ByteArrayResource(fileResponse.getByteData());
     return ResponseEntity.ok()
         .contentType(MediaType.parseMediaType(fileResponse.getContentType()))
         .contentLength(fileResponse.getByteData().length)
         .body(resource);
+  }
+
+  /**
+   * Delete file.
+   *
+   * @param fileName the file name
+   * @return the response String
+   */
+  @DeleteMapping("/delete/{fileName}")
+  public ResponseEntity<String> deleteFile(String fileName) {
+    log.info("DELETE /rest/api/file/delete/{} ", fileName);
+    fileService.deleteFile(fileName);
+    return new ResponseEntity<>("Deleted file Successfully : " + fileName, HttpStatus.OK);
   }
 }
