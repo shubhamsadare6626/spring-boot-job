@@ -12,27 +12,22 @@ public class JobService {
 
   @Autowired public JobRepository jobRepository;
 
-  // method to return all JobPosts
   public List<JobPost> getAllJobs() {
     return jobRepository.findAll();
   }
 
-  // method to add a jobPost
   public void addJob(JobPost jobPost) {
     jobRepository.save(jobPost);
   }
 
-  // method to get job by id
   public JobPost getJob(int postId) {
     return jobRepository.findById(postId).orElse(new JobPost());
   }
 
-  // method to update job with job post object
   public void updateJob(JobPost jobPost) {
     jobRepository.save(jobPost);
   }
 
-  // method to delete job post by id
   public void deleteJob(int postId) {
     jobRepository.deleteById(postId);
   }
@@ -71,7 +66,37 @@ public class JobService {
                     "UX Designer",
                     "Shape the user experience with your creative design skills.",
                     3,
-                    List.of("UI/UX Design", "Adobe XD", "Prototyping"))));
+                    List.of("UI/UX Design", "Adobe XD", "Prototyping")),
+                new JobPost(
+                    6,
+                    "Backend Developer",
+                    "Develop scalable backend services and systems.",
+                    4,
+                    List.of("Node.js", "Express", "MongoDB", "API")),
+                new JobPost(
+                    7,
+                    "DevOps Engineer",
+                    "Lead and grow our DevOps team.",
+                    6,
+                    List.of("Docker", "Kubernetes", "CI/CD", "AWS")),
+                new JobPost(
+                    8,
+                    "Security Analyst",
+                    "Ensure the security and integrity of our systems.",
+                    5,
+                    List.of("Penetration Testing", "Firewalls", "Encryption")),
+                new JobPost(
+                    9,
+                    "Database Administrator",
+                    "Maintain and develop high-performance database systems.",
+                    3,
+                    List.of("MySQL", "PostgreSQL", "Backup", "Replication")),
+                new JobPost(
+                    10,
+                    "Mobile Developer",
+                    "Lead mobile app development initiatives.",
+                    4,
+                    List.of("Swift", "Kotlin", "Flutter", "API"))));
 
     jobRepository.saveAll(jobs);
   }

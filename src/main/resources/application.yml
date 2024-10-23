@@ -14,14 +14,19 @@ spring:
       idle-timeout: 120000
       pool-name: job 
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     properties:
       hibernate:
+        default_schema: public
         enable_lazy_load_no_trans: true
     open-in-view: false
+  flyway:
+    baselineOnMigrate: true  
+  devtools:
+    restart:
+      enabled: true  
 s3:
   bucket:
     name: job-post-storage
