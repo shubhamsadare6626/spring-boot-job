@@ -4,16 +4,54 @@ import com.sample.springbootrest.entities.JobPost;
 import com.sample.springbootrest.repositories.JobRepository;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class JobService {
 
   @Autowired public JobRepository jobRepository;
 
+  @Autowired public QueryService<JobPost> queryService;
+
   public List<JobPost> getAllJobs() {
     return jobRepository.findAll();
+  }
+
+  public Page<JobPost> getAll(int pageSize, int pageNumber, String sortBy, String sortDir) {
+    List<Order> orders = new ArrayList<>();
+    String defaultSortBy = sortBy != null ? sortBy : "updatedAt";
+    String defaultSortDir = sortDir != null ? sortDir : "desc";
+    Direction direction = defaultSortDir.equalsIgnoreCase("desc") ? Direction.DESC : Direction.ASC;
+    orders.add(new Order(direction, defaultSortBy));
+
+    Sort sort = Sort.by(orders);
+    Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
+    return jobRepository.findAll(pageable);
+  }
+
+  public Page<JobPost> getSpecification(Pageable pageable, String q) {
+    Specification<JobPost> spec = queryService.getSpecification(q);
+    Pageable page = queryService.getAll(pageable);
+    return jobRepository.findAll(spec, page);
+  }
+
+  public List<JobPost> hasExpGreaterThan(String q, int exp) {
+    // applied more specification
+    Specification<JobPost> spec =
+        (root, query, criteriaBuilder) ->
+            criteriaBuilder.greaterThan(root.get("reqExperience"), exp);
+    spec = Specification.where(queryService.getSpecification(q).and(spec));
+    return jobRepository.findAll(spec);
   }
 
   public void addJob(JobPost jobPost) {
@@ -29,6 +67,7 @@ public class JobService {
   }
 
   public void deleteJob(int postId) {
+    log.info("Delete post id :{}", postId);
     jobRepository.deleteById(postId);
   }
 

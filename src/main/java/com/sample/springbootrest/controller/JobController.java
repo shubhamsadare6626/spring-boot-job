@@ -5,6 +5,8 @@ import com.sample.springbootrest.service.JobService;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -14,6 +16,29 @@ import org.springframework.web.bind.annotation.*;
 public class JobController {
 
   @Autowired private JobService jobService;
+
+  @GetMapping("/all")
+  public Page<JobPost> getAll(
+      @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int number,
+      @RequestParam(value = "pageSize", defaultValue = "5", required = false) int size,
+      @RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
+      @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir) {
+    log.info(
+        "GET /all number {} & size {} & sortBy {} & sortDir {}", number, size, sortBy, sortDir);
+    return jobService.getAll(size, number, sortBy, sortDir);
+  }
+
+  @GetMapping("/specification")
+  public Page<JobPost> getSpecification(
+      @RequestParam(value = "q", required = false) String q, Pageable pageable) {
+    return jobService.getSpecification(pageable, q);
+  }
+
+  @GetMapping("/exp-greater/{exp}")
+  public List<JobPost> hasExpGreaterThan(
+      @RequestParam(value = "q", required = false) String q, @PathVariable("exp") int exp) {
+    return jobService.hasExpGreaterThan(q, exp);
+  }
 
   @GetMapping("/jobPosts")
   public List<JobPost> getAllJobs() {
