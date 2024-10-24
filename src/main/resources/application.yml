@@ -12,7 +12,7 @@ spring:
       maximum-pool-size: 3
       minimum-idle: 1
       idle-timeout: 120000
-      pool-name: job 
+      pool-name: job
   jpa:
     show-sql: true
     hibernate:
@@ -32,3 +32,11 @@ s3:
     name: job-post-storage
     access-key: ${AWS_ACCESS_KEY_ID}
     secret-key: ${AWS_SECRET_ACCESS_KEY}
+# Logging
+logging:
+  level:
+    com.sample: DEBUG
+    org.hibernate.stat: DEBUG
+    org.hibernate.sql: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} [%clr(%5p)][%clr(%15.15t){yellow}] --- %clr(%c{1}){blue} : %clr(%m){faint}%n"
