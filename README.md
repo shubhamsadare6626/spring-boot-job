@@ -13,3 +13,6 @@ To get started with the code in this repository:
 
 Clone the Repository:
 `git@github.com:shubhamsadare6626/spring-boot-job.git`
+
+Documentation -Springdoc Open API
+-http://localhost:8081/swagger-ui/index.html#

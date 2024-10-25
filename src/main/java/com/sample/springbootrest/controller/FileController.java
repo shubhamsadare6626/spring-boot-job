@@ -2,6 +2,11 @@ package com.sample.springbootrest.controller;
 
 import com.sample.springbootrest.service.FileService;
 import com.sample.springbootrest.service.FileService.FileResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,18 +30,23 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/rest/api/file")
+@Tag(name = "File API's", description = "File Op's consist upload, download and delete operations")
 public class FileController {
 
   @Autowired private FileService fileService;
 
-  /**
-   * Upload file to S3 bucket.
-   *
-   * @param file the file
-   * @return the response entity
-   */
+  @Operation(
+      summary = "Upload a file to S3",
+      description = "This endpoint allows users to upload a file to an S3 bucket.")
+  @ApiResponses(
+      value = {
+        @ApiResponse(responseCode = "200", description = "File uploaded successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid file input provided"),
+        @ApiResponse(responseCode = "500", description = "Error occurred while uploading file")
+      })
   @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public ResponseEntity<String> uploadFileToS3Bucket(@RequestParam("file") MultipartFile file) {
+  public ResponseEntity<String> uploadFileToS3Bucket(
+      @Parameter(description = "File to upload") @RequestParam("file") MultipartFile file) {
     log.info("POST /rest/api/file/upload ");
     try {
       // Call the service method to upload to S3
@@ -48,12 +58,9 @@ public class FileController {
     }
   }
 
-  /**
-   * Download file.
-   *
-   * @param fileName the file name
-   * @return the response entity
-   */
+  @Operation(
+      summary = "Download file from S3",
+      description = "This endpoint allows users to download a file from S3 bucket.")
   @GetMapping("/download/{fileName}")
   public ResponseEntity<?> downloadFile(@PathVariable String fileName) throws IOException {
     log.info("GET /rest/api/file/download/{} ", fileName);
@@ -65,12 +72,7 @@ public class FileController {
         .body(resource);
   }
 
-  /**
-   * Delete file.
-   *
-   * @param fileName the file name
-   * @return the response String
-   */
+  @Operation(summary = "Delete a file from S3", description = "Delete a file from S3 bucket.")
   @DeleteMapping("/delete/{fileName}")
   public ResponseEntity<String> deleteFile(String fileName) {
     log.info("DELETE /rest/api/file/delete/{} ", fileName);
