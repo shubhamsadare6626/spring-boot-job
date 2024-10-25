@@ -4,6 +4,9 @@ import com.sample.springbootrest.entities.JobPost;
 import com.sample.springbootrest.repositories.JobRepository;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,20 +44,29 @@ public class JobService {
 
   public Page<JobPost> getSpecification(Pageable pageable, String q) {
     Specification<JobPost> spec = queryService.getSpecification(q);
-    Pageable page = queryService.getAll(pageable);
-    return jobRepository.findAll(spec, page);
+    Pageable pageRequest = queryService.getAll(pageable);
+    return jobRepository.findAll(spec, pageRequest);
   }
 
-  public List<JobPost> hasExpGreaterThan(String q, int exp) {
+  public List<JobPost> findByExperienceGreaterThan(String q, int experience) {
     // applied more specification
     Specification<JobPost> spec =
         (root, query, criteriaBuilder) ->
-            criteriaBuilder.greaterThan(root.get("reqExperience"), exp);
+            criteriaBuilder.greaterThan(root.get("reqExperience"), experience);
+    // Combine specifications using `and`
     spec = Specification.where(queryService.getSpecification(q).and(spec));
     return jobRepository.findAll(spec);
   }
 
-  public void addJob(JobPost jobPost) {
+  public List<JobPost> joinTableSearch(SearchDto searchDto) {
+    Specification<JobPost> joinTableSpec =
+        (root, query, cb) ->
+            cb.equal(
+                root.join(searchDto.getTable()).get(searchDto.getColumn()), searchDto.getTable());
+    return jobRepository.findAll(joinTableSpec);
+  }
+
+  public void createJob(JobPost jobPost) {
     jobRepository.save(jobPost);
   }
 
@@ -143,5 +155,15 @@ public class JobService {
   public List<JobPost> search(String keyword) {
 
     return jobRepository.findByPostProfileContainingOrPostDescContaining(keyword, keyword);
+  }
+
+  @Data
+  @AllArgsConstructor
+  @NoArgsConstructor
+  public static class SearchDto {
+    private String table;
+    private String column;
+    private String op;
+    private String value;
   }
 }

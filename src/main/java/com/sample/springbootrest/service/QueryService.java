@@ -69,10 +69,27 @@ public class QueryService<T> {
                     criteriaBuilder.notLike(
                         criteriaBuilder.lower(root.get(key)), "%" + value.toLowerCase() + "%"));
                 break;
+              case "in":
+                predicates.add(criteriaBuilder.in(root.get(key)).value(value));
+                break;
+              case "!in":
+                predicates.add(criteriaBuilder.in(root.get(key)).value(value).not());
+                break;
+              case "gt":
+                predicates.add(criteriaBuilder.greaterThan(root.get(key), value));
+                break;
+              case "gte":
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get(key), value));
+                break;
+              case "lt":
+                predicates.add(criteriaBuilder.lessThan(root.get(key), value));
+                break;
+              case "lte":
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get(key), value));
+                break;
               default:
                 break;
             }
-
           } else {
             log.warn("No values provided for key: {}", key);
           }
@@ -80,7 +97,7 @@ public class QueryService<T> {
       } catch (JsonProcessingException e) {
         log.warn(String.format("Unable to build criteria for [%s]", q), e);
       }
-      // addded deletedAt null clause
+      // addded deletedAt is null clause
       criteriaBuilder.isNull(root.get("deletedAt"));
       return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
     };
@@ -115,6 +132,7 @@ public class QueryService<T> {
     } catch (JsonProcessingException e) {
       log.info("Json mapping exception : {} ", e.getMessage(), e);
     }
+    log.info("Json Map :{}", map.entrySet());
     return map.entrySet().stream()
         .collect(Collectors.toMap(e -> snakeToCamel(e.getKey()), Map.Entry::getValue));
   }

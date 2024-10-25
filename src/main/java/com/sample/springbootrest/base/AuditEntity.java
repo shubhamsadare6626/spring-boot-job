@@ -30,7 +30,7 @@ public abstract class AuditEntity<U> {
   protected Date createdAt;
 
   @LastModifiedBy
-  @Column(name = "updated_by") // , insertable = false
+  @Column(name = "updated_by")
   protected U updatedBy;
 
   @LastModifiedDate
