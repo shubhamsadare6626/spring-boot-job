@@ -33,6 +33,7 @@ public class FileService {
   private String awsBucketName;
 
   private static final String CONTENT_TYPE = "content-type";
+
   @Autowired private AmazonS3 awsClient;
 
   /**

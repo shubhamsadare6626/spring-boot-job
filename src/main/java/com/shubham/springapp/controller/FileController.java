@@ -74,7 +74,7 @@ public class FileController {
 
   @Operation(summary = "Delete a file from S3", description = "Delete a file from S3 bucket.")
   @DeleteMapping("/delete/{fileName}")
-  public ResponseEntity<String> deleteFile(String fileName) {
+  public ResponseEntity<String> deleteFile(@PathVariable String fileName) {
     log.info("DELETE /rest/api/file/delete/{} ", fileName);
     fileService.deleteFile(fileName);
     return new ResponseEntity<>("Deleted file Successfully : " + fileName, HttpStatus.OK);

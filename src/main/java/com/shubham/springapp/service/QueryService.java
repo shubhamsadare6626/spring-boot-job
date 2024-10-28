@@ -97,7 +97,7 @@ public class QueryService<T> {
       } catch (JsonProcessingException e) {
         log.warn(String.format("Unable to build criteria for [%s]", q), e);
       }
-      // addded deletedAt is null clause
+      // added deletedAt is null clause
       criteriaBuilder.isNull(root.get("deletedAt"));
       return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
     };
