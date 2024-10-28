@@ -2,7 +2,7 @@ server:
   port: 8081
 spring:
   application:
-    name: springboot-job-project
+    name: spring-boot-job-service
   datasource:
     url: jdbc:postgresql://${SPRING_DATASOURCE_HOST:localhost}:${SPRING_DATASOURCE_PORT:5432}/postgres
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
@@ -35,7 +35,7 @@ s3:
 # Logging
 logging:
   level:
-    com.sample: DEBUG
+    com.shubham: DEBUG
     org.hibernate.stat: DEBUG
     org.hibernate.sql: DEBUG
   pattern:

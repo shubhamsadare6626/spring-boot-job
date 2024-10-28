@@ -1,6 +1,6 @@
-package com.sample.springbootrest.entities;
+package com.shubham.springapp.entities;
 
-import com.sample.springbootrest.base.AuditEntity;
+import com.shubham.springapp.base.AuditEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;

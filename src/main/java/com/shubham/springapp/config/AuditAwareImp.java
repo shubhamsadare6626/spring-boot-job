@@ -1,4 +1,4 @@
-package com.sample.springbootrest.config;
+package com.shubham.springapp.config;
 
 import java.util.Optional;
 import org.springframework.data.domain.AuditorAware;

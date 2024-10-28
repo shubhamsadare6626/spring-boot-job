@@ -9,10 +9,10 @@
         <relativePath/>
         <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.sample</groupId>
-    <artifactId>spring-boot-job</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>spring-boot-job</name>
+    <groupId>com.shubham</groupId>
+    <artifactId>spring-boot-job-service</artifactId>
+    <version>0.0.1</version>
+    <name>spring-boot-job-service</name>
     <description>Job project of Spring Boot</description>
     <properties>
         <java.version>17</java.version>

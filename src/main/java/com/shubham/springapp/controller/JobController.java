@@ -1,7 +1,7 @@
-package com.sample.springbootrest.controller;
+package com.shubham.springapp.controller;
 
-import com.sample.springbootrest.entities.JobPost;
-import com.sample.springbootrest.service.JobService;
+import com.shubham.springapp.entities.JobPost;
+import com.shubham.springapp.service.JobService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

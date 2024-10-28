@@ -1,8 +1,8 @@
 version: '3'
 services:
-  springboot-job:
-    container_name: springboot-job
-    image: personal/springboot-job
+  spring-boot-job-service:
+    container_name: spring-boot-job-service
+    image: personal/spring-boot-job-service
     ports:
       - "8081:8081"
     environment:

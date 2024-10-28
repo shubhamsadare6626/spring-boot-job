@@ -1,4 +1,4 @@
-package com.sample.springbootrest.config;
+package com.shubham.springapp.config;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;

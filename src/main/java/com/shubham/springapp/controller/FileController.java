@@ -1,7 +1,7 @@
-package com.sample.springbootrest.controller;
+package com.shubham.springapp.controller;
 
-import com.sample.springbootrest.service.FileService;
-import com.sample.springbootrest.service.FileService.FileResponse;
+import com.shubham.springapp.service.FileService;
+import com.shubham.springapp.service.FileService.FileResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

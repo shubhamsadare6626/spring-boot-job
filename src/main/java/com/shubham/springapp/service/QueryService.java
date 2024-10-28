@@ -1,4 +1,4 @@
-package com.sample.springbootrest.service;
+package com.shubham.springapp.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

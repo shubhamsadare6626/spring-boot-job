@@ -30,16 +30,16 @@ pipeline {
             steps {
                 script {
                     // Build Docker image using Dockerfile in the current directory
-                    sh 'docker build -t personal/springboot-job .'
+                    sh 'docker build -t personal/spring-boot-job-service .'
 		    
 		    // Run a container from the newly built image
-	            sh 'docker run -d --name springboot-job \
+	            sh 'docker run -d --name spring-boot-job-service \
 	            -p 8081:8081 \
 	            -e SPRING_DATASOURCE_USERNAME=postgres \
 	            -e SPRING_DATASOURCE_PASSWORD=root \
 	            -e SPRING_DATASOURCE_HOST=43.204.228.69 \
 	            -e SPRING_DATASOURCE_PORT=5432 \
-	            personal/springboot-job'
+	            personal/spring-boot-job-service'
 		 }
             }
         }

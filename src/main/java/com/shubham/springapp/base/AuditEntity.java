@@ -1,4 +1,4 @@
-package com.sample.springbootrest.base;
+package com.shubham.springapp.base;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;

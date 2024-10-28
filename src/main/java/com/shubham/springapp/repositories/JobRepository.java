@@ -1,6 +1,6 @@
-package com.sample.springbootrest.repositories;
+package com.shubham.springapp.repositories;
 
-import com.sample.springbootrest.entities.JobPost;
+import com.shubham.springapp.entities.JobPost;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

@@ -1,7 +1,7 @@
-package com.sample.springbootrest.service;
+package com.shubham.springapp.service;
 
-import com.sample.springbootrest.entities.JobPost;
-import com.sample.springbootrest.repositories.JobRepository;
+import com.shubham.springapp.entities.JobPost;
+import com.shubham.springapp.repositories.JobRepository;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;

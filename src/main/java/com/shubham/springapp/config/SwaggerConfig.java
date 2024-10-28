@@ -1,4 +1,4 @@
-package com.sample.springbootrest.config;
+package com.shubham.springapp.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
