@@ -52,3 +52,28 @@ logging:
     org.hibernate.sql: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} [%clr(%5p)][%clr(%15.15t){yellow}] --- %clr(%c{1}){blue} : %clr(%m){faint}%n"
+management:
+  server:
+    port: 9101
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoint:
+    info:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include:
+          - auditevents
+          - beans
+          - refresh
+          - configprops
+          - env
+          - flyway
+          - health
+          - httptrace
+          - info
+          - loggers
+          - liquibase
+          - metrics
