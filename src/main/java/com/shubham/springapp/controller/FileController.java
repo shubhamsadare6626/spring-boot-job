@@ -30,7 +30,9 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/rest/api/file")
-@Tag(name = "File API's", description = "File Op's consist upload, download and delete operations")
+@Tag(
+    name = "File API's",
+    description = "File operations consist upload, download and delete operations")
 public class FileController {
 
   @Autowired private FileService fileService;
@@ -78,5 +80,10 @@ public class FileController {
     log.info("DELETE /rest/api/file/delete/{} ", fileName);
     fileService.deleteFile(fileName);
     return new ResponseEntity<>("Deleted file Successfully : " + fileName, HttpStatus.OK);
+  }
+
+  @GetMapping("/test")
+  public void test() {
+    log.info("Testing API....");
   }
 }

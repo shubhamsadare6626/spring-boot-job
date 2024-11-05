@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @CrossOrigin
 @RestController
-@RequestMapping("/rest/api/job")
+@RequestMapping("/rest/api/job-post")
 @Tag(
     name = "Job Post API's",
     description =
@@ -43,10 +43,10 @@ public class JobController {
         @ApiResponse(responseCode = "400", description = "Invalid input data provided"),
         @ApiResponse(responseCode = "500", description = "Internal server error")
       })
-  @PostMapping("/jobPost")
+  @PostMapping("")
   public JobPost createJob(@RequestBody JobPost jobPost) {
 
-    log.info("POST /jobPost - Payload: {}", jobPost);
+    log.info("POST /job-post - Payload: {}", jobPost);
     jobService.createJob(jobPost);
     return jobService.getJob(jobPost.getPostId());
   }
@@ -56,9 +56,9 @@ public class JobController {
       description = "This endpoint allows to load defined new Data.")
   @GetMapping("/load")
   public String loadData() {
-    log.info("GET /load - Loading data...");
+    log.info("GET /job-post/load - Loading data...");
     jobService.load();
-    log.info("GET /load - Data loaded...");
+    log.info("GET /job-post/load - Data loaded...");
     return "Data loaded Success";
   }
 
@@ -72,9 +72,9 @@ public class JobController {
         @ApiResponse(responseCode = "404", description = "Job posting not found"),
         @ApiResponse(responseCode = "500", description = "Internal server error")
       })
-  @PutMapping("/jobPost")
+  @PutMapping("")
   public JobPost updateJob(@RequestBody JobPost jobPost) {
-    log.info("PUT /jobPost - Payload: {}", jobPost);
+    log.info("PUT /job-post - Payload: {}", jobPost);
     jobService.updateJob(jobPost);
     return jobService.getJob(jobPost.getPostId());
   }
@@ -87,23 +87,23 @@ public class JobController {
         @ApiResponse(responseCode = "200", description = "Job posting retrieved successfully"),
         @ApiResponse(responseCode = "404", description = "Job posting not found")
       })
-  @GetMapping("/jobPost/{postId}")
+  @GetMapping("/{postId}")
   public JobPost getJob(@PathVariable int postId) {
-    log.info("GET /jobPosts/{} ", postId);
+    log.info("GET /job-post/{} ", postId);
     return jobService.getJob(postId);
   }
 
-  @GetMapping("/jobPosts/keyword/{keyword}")
+  @GetMapping("/keyword/{keyword}")
   public List<JobPost> searchByKeyword(@PathVariable("keyword") String keyword) {
-    log.info("GET /jobPosts/keyword/{} ", keyword);
+    log.info("GET /job-post/keyword/{} ", keyword);
     return jobService.search(keyword);
   }
 
   @Operation(summary = "List all job posts", description = "This endpoint list all job posts")
-  @GetMapping("/jobPosts")
-  public List<JobPost> getAllJobs() {
-    log.info("GET /jobPosts ");
-    return jobService.getAllJobs();
+  @GetMapping("/list")
+  public List<JobPost> getJobList() {
+    log.info("GET /job-post/list ");
+    return jobService.getJobList();
   }
 
   @Operation(
@@ -159,10 +159,15 @@ public class JobController {
         @ApiResponse(responseCode = "404", description = "Job posting not found"),
         @ApiResponse(responseCode = "500", description = "Internal server error")
       })
-  @DeleteMapping("/jobPost/{postId}")
+  @DeleteMapping("/{postId}")
   public String deleteJob(@PathVariable int postId) {
-    log.info("DELETE /jobPost/{} ", postId);
+    log.info("DELETE /job-post/{} ", postId);
     jobService.deleteJob(postId);
     return "Deleted id : " + postId;
+  }
+
+  @GetMapping("/test")
+  public void test() {
+    jobService.test();
   }
 }

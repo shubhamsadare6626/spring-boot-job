@@ -3,40 +3,10 @@ server:
 spring:
   application:
     name: spring-boot-job-service
-  datasource:
-    url: jdbc:postgresql://${SPRING_DATASOURCE_HOST:localhost}:${SPRING_DATASOURCE_PORT:5432}/postgres
-    username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:root}
-    driver-class-name: org.postgresql.Driver
-    hikari:
-      maximum-pool-size: 3
-      minimum-idle: 1
-      idle-timeout: 120000
-      pool-name: job
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        default_schema: public
-        enable_lazy_load_no_trans: true
-    open-in-view: false
-  flyway:
-    baselineOnMigrate: true  
-  devtools:
-    restart:
-      enabled: true  
-s3:
-  bucket:
-    name: job-post-storage
-    access-key: ${AWS_ACCESS_KEY_ID}
-    secret-key: ${AWS_SECRET_ACCESS_KEY}
-# Logging
-logging:
-  level:
-    com.shubham: DEBUG
-    org.hibernate.stat: DEBUG
-    org.hibernate.sql: DEBUG
-  pattern:
-    console: "%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} [%clr(%5p)][%clr(%15.15t){yellow}] --- %clr(%c{1}){blue} : %clr(%m){faint}%n"
+  cloud:
+    config:
+      username: ${CONFIG_SERVER_USERNAME:admin}
+      password: ${CONFIG_SERVER_PASSWORD:admin}
+      fail-fast: false
+  config:
+    import: "optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888}"

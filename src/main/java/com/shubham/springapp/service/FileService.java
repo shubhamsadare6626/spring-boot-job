@@ -52,7 +52,7 @@ public class FileService {
     var objMetadata = new ObjectMetadata();
     objMetadata.setContentLength(byteFile.length);
     objMetadata.setUserMetadata(userMetadata);
-
+    log.info("aws details : {} & {} ", awsBucketName, objMetadata);
     var fileName = UUID.randomUUID().toString();
     var putObjectRequest =
         new PutObjectRequest(

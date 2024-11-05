@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +27,7 @@ public class JobService {
 
   @Autowired public QueryService<JobPost> queryService;
 
-  public List<JobPost> getAllJobs() {
+  public List<JobPost> getJobList() {
     return jobRepository.findAll();
   }
 
@@ -165,5 +166,12 @@ public class JobService {
     private String column;
     private String op;
     private String value;
+  }
+
+  @Value("${config.test:null}")
+  private String test;
+
+  public void test() {
+    log.info("Testing config value : {}", test);
   }
 }

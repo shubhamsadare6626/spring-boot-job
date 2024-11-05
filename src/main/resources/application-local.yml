@@ -1,0 +1,54 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: spring-boot-job-service
+  cloud:
+    config:
+      username: admin
+      password: admin
+      fail-fast: false
+  config:
+    import: "optional:configserver:http://localhost:8888"
+  datasource:
+    url: jdbc:postgresql://${SPRING_DATASOURCE_HOST:localhost}:${SPRING_DATASOURCE_PORT:5432}/postgres
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:root}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 3
+      minimum-idle: 1
+      idle-timeout: 120000
+      pool-name: job
+# flyway configuration
+  flyway:
+    default_schema: public
+    baselineOnMigrate: true      
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        default_schema: public
+        enable_lazy_load_no_trans: true
+    open-in-view: false
+  devtools:
+    restart:
+      enabled: true 
+config:
+  test: local-server
+s3:
+  bucket:
+    name: job-post-storage
+    access-key: ${AWS_ACCESS_KEY_ID}
+    secret-key: ${AWS_SECRET_ACCESS_KEY}
+# Logging
+logging:
+  level:
+    com.shubham: DEBUG
+    org.hibernate.stat: DEBUG
+    org.hibernate.sql: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} [%clr(%5p)][%clr(%15.15t){yellow}] --- %clr(%c{1}){blue} : %clr(%m){faint}%n"

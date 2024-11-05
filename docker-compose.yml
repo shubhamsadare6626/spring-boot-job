@@ -6,8 +6,9 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=root
+      - CONFIG_SERVER_URL=http://spring-config-service:8888
+      - SPRING_DATASOURCE_USERNAME=${DATABASE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DATABASE_PASSWORD}
       - SPRING_DATASOURCE_HOST=${HOST_IP} #Public IPv4 address of aws -instance
       - SPRING_DATASOURCE_PORT=5432
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
