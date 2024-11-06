@@ -37,7 +37,7 @@ pipeline {
 	            -p 8081:8081 \
 	            -e SPRING_DATASOURCE_USERNAME=postgres \
 	            -e SPRING_DATASOURCE_PASSWORD=root \
-	            -e SPRING_DATASOURCE_HOST=43.204.228.69 \
+	            -e SPRING_DATASOURCE_HOST=65.1.219.35 \
 	            -e SPRING_DATASOURCE_PORT=5432 \
 	            personal/spring-boot-job-service'
 		 }
