@@ -8,8 +8,6 @@ spring:
       username: admin
       password: admin
       fail-fast: false
-  config:
-    import: "optional:configserver:http://localhost:8888"
   datasource:
     url: jdbc:postgresql://${SPRING_DATASOURCE_HOST:localhost}:${SPRING_DATASOURCE_PORT:5432}/postgres
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
